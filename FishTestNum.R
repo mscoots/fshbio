@@ -107,3 +107,26 @@ length(GB3$Terr_Aquat)
 length(GB3$body.length_mm < 1.5)
 length(which(GB3$body.length_mm < 1.5))
 length(which(GB3$body.length_mm < 1.5))/46.30025925#divided by drift volume
+
+# trial organization ------------------------------------------------------
+
+#bring in data
+test <- read.csv("total_macro_inventory_2021.csv", header=TRUE)
+test$body.length_mm
+test$Sample.ID
+
+# which nets are used
+length(which(test$Sample.ID=="6.28.21_HAB018_d1"))
+length(which(test$Sample.ID=="6.28.21_HAB018_d2"))
+#run with it
+for (x in 1:44){
+  if(x==1){
+    cat("box",x)
+    print(length(which((test$Sample.ID=="6.28.21_HAB018_d1"|test$Sample.ID=="6.28.21_HAB018_d2")
+                       &test$body.length_mm < 1.5))/26.31808988)
+  }else{
+    cat("box",x)
+    print(length(which((test$Sample.ID=="6.28.21_HAB018_d1"|test$Sample.ID=="6.28.21_HAB018_d2")
+                       &test$body.length_mm > (x-.5)& test$body.length_mm < (x+.51)))/26.31808988)
+  }
+}
